@@ -1,0 +1,25 @@
+org: turinglabs
+app: tests
+service: aws-nodejs-docker-demo
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  ecr:
+    images:
+      appimage:
+        path: ./
+        platform: linux/amd64
+
+functions:
+  hello:
+    image:
+      name: appimage
+    events:
+      - http:
+          path: /
+          method: ANY
+      - http:
+          path: /{proxy+}
+          method: ANY
